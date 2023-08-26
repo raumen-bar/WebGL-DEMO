@@ -30,9 +30,9 @@
 
 	<p>//</p>
 	<p>RENDERER::</p>
-		<p on:click={() => changeRenerer('three')} on:keypress={(null)} class="clickable" class:active={$renderer === 'three'}>THREE.JS</p>
-		<p on:click={() => changeRenerer('regl')} on:keypress={(null)} class="clickable" class:active={$renderer === 'regl'}>REGL.JS</p>
-		<p on:click={() => changeRenerer('webgl')} on:keypress={(null)} class="clickable" class:active={$renderer === 'webgl'}>WebGL</p>
+		<p on:click={() => changeRenerer('three')} on:keypress={(null)} class="clickable" class:active={$renderer === 'three'}>THREE.JS (610kb)</p>
+		<p on:click={() => changeRenerer('regl')} on:keypress={(null)} class="clickable" class:active={$renderer === 'regl'}>REGL.JS (122kb)</p>
+		<p on:click={() => changeRenerer('webgl')} on:keypress={(null)} class="clickable" class:active={$renderer === 'webgl'}>WebGL (0kb)</p>
 	<!-- <a href="https://aufbau.io" target="_blank">EIN AUFBAU DING</a> -->
 </nav>
 
