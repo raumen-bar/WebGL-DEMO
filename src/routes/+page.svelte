@@ -1,11 +1,11 @@
 <script>
 </script>
 
-<section>
+<!-- <section>
 	<div class="main">
 		<p>make web fun again</p>
 	</div>	
-</section>
+</section> -->
 
 <style>
 	section {

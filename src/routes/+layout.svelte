@@ -2,7 +2,7 @@
 	import './app.css';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe } from '$lib/store/store';
+	import { screenType, isIframe, renderer } from '$lib/store/store';
 
 	import Header from '$lib/components/header/header.svelte';
 	import Footer from '$lib/components/footer/footer.svelte';
@@ -11,8 +11,10 @@
 
 	onMount(async () => {
 
-		const module = await import('$lib/graphics/three.svelte');
-		Geometry = module.default;
+		// const moduleThree = await import('$lib/graphics/three.svelte');
+		// const moduleRegl = await import('$lib/graphics/regl.svelte');
+		// const moduleWebGL = await import('$lib/graphics/webgl.svelte');
+		// Geometry = moduleThree.default;
 
 		function getDeviceType() {
 			const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -35,10 +37,26 @@
 		screenType.set(getDeviceType());
 		isIframe.set(window.location !== window.parent.location);
 	});
+
+	$: {
+        if ($renderer === 'three') {
+            import('$lib/graphics/three.svelte').then(module => {
+                Geometry = module.default;
+            });
+        } else if ($renderer === 'regl') {
+            import('$lib/graphics/regl.svelte').then(module => {
+                Geometry = module.default;
+            });
+        } else if ($renderer === 'webgl') {
+            import('$lib/graphics/webgl.svelte').then(module => {
+                Geometry = module.default;
+            });
+        }
+    }
 </script>
 
 <svelte:head>
-	<title>AUFBAU</title>
+	<title>WebGL DEMO // AUFBAU</title>
 	<meta name="description" content="AUFBAU :: WEB 1.0 Re-Imagined" />
 
 	<link
@@ -63,7 +81,9 @@
 
 </svelte:head>
 
+{#key $renderer}
 <svelte:component this={Geometry} />
+{/key}
 
 {#if $screenType}
 	<main>
@@ -75,11 +95,11 @@
 			<slot />
 		</body>
 
-		{#if $screenType == 3}
+		<!-- {#if $screenType == 3}
 		<footer>
 			<Footer />
 		</footer>
-		{/if}
+		{/if} -->
 	</main>
 {/if}
 

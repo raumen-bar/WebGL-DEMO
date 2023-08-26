@@ -9,8 +9,7 @@ import { mat4 } from 'gl-matrix';
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
-import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
-import fragmentShader_sicovecas2 from './shaders/fragmentShader-sicovecas2.glsl';
+import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
 
 let canvas;
 let reglInstance;
@@ -28,7 +27,8 @@ const colors = {
     color5: [80/255, 153/255, 180/255],
     color6: [0, 0, 255/255],
     color7: [0, 255/255, 0],
-    color9: [143/255, 189/255, 90/255]
+    color9: [143/255, 189/255, 90/255],
+    color0: [35/255, 35/255, 35/255]
 };
 
 const colors_aufbau = {
@@ -45,17 +45,10 @@ const colors_niels = {
     color4: colors.color7,
 }
 
-const colors_sicovecas1 = {
-    color1: colors.color4,
-    color2: colors.color5,
-    color3: colors.color5,
-    color4: null
-}
-
-const colors_sicovecas2 = {
+const colors_raum = {
     color1: colors.color1,
-    color2: colors.color2,
-    color3: colors.color3,
+    color2: colors.color1,
+    color3: colors.color0,
     color4: null
 }
 
@@ -167,13 +160,13 @@ function updateDrawCommands(pathname) {
              drawFullScreenSquare = createDrawCommand(fragmentShader_aufbau, vertexShader, fullSquare, uvFullSquare, colors_aufbau);
              drawHalfScreenSquare = createDrawCommand(fragmentShader_aufbau, vertexShader, halfSquare, uvHalfSquare, colors_aufbau);
              break;
-         case '/niels':
+         case '/ripple':
              drawFullScreenSquare = createDrawCommand(fragmentShader_niels, vertexShader, fullSquare, uvFullSquare, colors_niels);
              drawHalfScreenSquare = null;
              break;
-         case '/sicovecas':
-             drawFullScreenSquare = createDrawCommand(fragmentShader_sicovecas1, vertexShader, fullSquare, uvFullSquare, colors_sicovecas1);
-             drawHalfScreenSquare = createDrawCommand(fragmentShader_sicovecas2, vertexShader, halfSquare, uvHalfSquare, colors_sicovecas2);
+         case '/tangent':
+             drawFullScreenSquare = createDrawCommand(fragmentShader_raum, vertexShader, fullSquare, uvFullSquare, colors_raum);
+             drawHalfScreenSquare = createDrawCommand(fragmentShader_raum, vertexShader, halfSquare, uvHalfSquare, colors_raum);
              break;
      }
  }

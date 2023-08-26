@@ -1,11 +1,10 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestory } from 'svelte';
 
   import vertexShader from './shaders/vertexShader.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
-	import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
-	import fragmentShader_sicovecas2 from './shaders/fragmentShader-sicovecas2.glsl';
+	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
 
 	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_sicovecas1, shaderMaterial_sicovecas2;
 

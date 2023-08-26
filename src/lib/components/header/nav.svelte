@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	// import { screenType } from '$lib/store/store';
+	import { renderer } from '$lib/store/store';
 
 	export let navItems = [];
 	export async function load() {
@@ -10,16 +10,29 @@
 			}
 		};
 	}
+
+	let changeRenerer = (value) => {
+		renderer.set(value);
+		window.location.reload();
+	}
 </script>
 
 <nav>
+
+	<p>SHADER::</p>
 
 	{#each navItems as navItem}
 		<a href={navItem.href} class="" class:active={navItem.href === $page.url.pathname}
 			>{navItem.name}</a
 		>
+		
 	{/each}
 
+	<p>//</p>
+	<p>RENDERER::</p>
+		<p on:click={() => changeRenerer('three')} on:keypress={(null)} class="clickable" class:active={$renderer === 'three'}>THREE.JS</p>
+		<p on:click={() => changeRenerer('regl')} on:keypress={(null)} class="clickable" class:active={$renderer === 'regl'}>REGL.JS</p>
+		<p on:click={() => changeRenerer('webgl')} on:keypress={(null)} class="clickable" class:active={$renderer === 'webgl'}>WebGL</p>
 	<!-- <a href="https://aufbau.io" target="_blank">EIN AUFBAU DING</a> -->
 </nav>
 
@@ -36,16 +49,21 @@
 	nav p {
 		padding: 10px 10px;
 		font-size: inherit;
-		cursor: pointer;
 		color: inherit;
+		opacity: .5;
+	}
+
+	nav a,
+	nav p.clickable {
+		cursor: pointer;
 	}
 
 	nav a:hover {
 		opacity: 0.6;
 	}
 
-	nav a.active {
-		font-weight: 600;
+	nav a.active, p.active {
+		font-weight: 700;
 	}
 
 	.active,

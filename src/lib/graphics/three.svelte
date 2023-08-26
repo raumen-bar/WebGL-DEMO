@@ -1,10 +1,11 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy  } from 'svelte';
 	import { screenType } from '$lib/store/store';
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 
 	import * as THREE from 'three';
+	import Stats from 'stats.js'
 
 	import vertexShader from './shaders/vertexShader-three.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
@@ -14,6 +15,7 @@
 	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_raum;
 
 	let container;
+	let stats;
 
 	let camera, scene, renderer;
 
@@ -23,6 +25,10 @@
 	let mouse = new THREE.Vector2();
 	const clock = new THREE.Clock();
 
+	stats = new Stats()
+	stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+	document.body.appendChild(stats.dom)
+	
 	init();
 	animate();
 
@@ -95,7 +101,7 @@
 			}
 		}
 
-		if ($page.url.pathname == '/niels') {
+		if ($page.url.pathname == '/ripple') {
 			if ($screenType == 1) {
 				shaderMaterial_niels.uniforms.mouse.value = {
 					x: clock.getElapsedTime() * 1,
@@ -109,7 +115,7 @@
 			}
 		}
 
-		if ($page.url.pathname == '/raum') {
+		if ($page.url.pathname == '/tangent') {
 			shaderMaterial_raum.uniforms.mouse.value = mouse;
 			shaderMaterial_raum.uniforms.time.value = elapsedTime;
 		}
@@ -131,6 +137,8 @@
 
 		onMount(() => {
 			container.appendChild(renderer.domElement);
+
+
 		});
 
 		window.addEventListener('mousemove', onDocumentMouseMove);
@@ -174,11 +182,11 @@
 			setHome();
 		}
 
-		if ($page.url.pathname == '/niels') {
+		if ($page.url.pathname == '/ripple') {
 			setNiels();
 		}
 
-		if ($page.url.pathname == '/raum') {
+		if ($page.url.pathname == '/tangent') {
 			setSicovecas();
 		}
 	}
@@ -216,13 +224,35 @@
 
 	function animate() {
 		requestAnimationFrame(animate);
+		stats.begin()
 		render();
+		stats.end()
 	}
 
 	function render() {
 		updateShaderUniforms();
 		renderer.render(scene, camera);
 	}
+
+	onDestroy(() => {
+    // Remove event listeners
+    window.removeEventListener('mousemove', onDocumentMouseMove);
+    window.removeEventListener('resize', onWindowResize);
+    // Dispose of the materials, geometries, textures etc.
+    scene.traverse(object => {
+        if (object instanceof THREE.Mesh) {
+            object.geometry.dispose();
+            object.material.dispose();
+        }
+        // Consider adding other types if they hold resources (like textures).
+    });
+    
+    // If you've added any textures, dispose of them too
+    // texture.dispose();
+
+    renderer.dispose();  // Dispose of the renderer's resources
+});
+
 </script>
 
 <div bind:this={container} class:geometry={true} />

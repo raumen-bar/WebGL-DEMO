@@ -1,12 +1,11 @@
 <script>
 </script>
 
-<section>
+<!-- <section>
 	<div class="main">
-		<!-- <a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">// visit sicovecas (wip)</a> -->
-		<p>WIP</p>
+		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">// visit niels</a>
 	</div>
-</section>
+</section> -->
 
 <style>
 section {
@@ -38,7 +37,7 @@ section {
 		padding:  20px;
 	}
 
-	.main a, .main p {
+	.main a {
 		padding: 10px;
 		border: solid 1px var(--background);
 		background:  var(--background);

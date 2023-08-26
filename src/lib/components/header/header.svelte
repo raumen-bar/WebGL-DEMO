@@ -8,16 +8,16 @@
 	// stub data out
 	const navItems = [
 		{
-			name: 'AUFBAU',
+			name: 'JULIA',
 			href: '/'
 		},
 		{
-			name: 'RAUM',
-			href: '/raum'
+			name: 'TANGENT',
+			href: '/tangent'
 		},
 		{
-			name: 'NIELS',
-			href: '/niels'
+			name: 'RIPPLE',
+			href: '/ripple'
 		},
 
 	];
@@ -39,7 +39,7 @@
 		<p class:selected={$darkMode == true}>OFFLINE</p>
 	</div> -->
 
-	<div class="icons">
+	<!-- <div class="icons">
     <a href="/dan_humphries_cv.pdf">
         <img src="/icons/cv.svg" alt="cv" class="icon" />
     </a>
@@ -49,7 +49,7 @@
     <a href="https://www.instagram.com/dn.niels" target="_blank" rel="noreferrer">
         <img src="/icons/insta.svg" alt="instagram" class="icon" />
     </a>
-</div>
+	</div> -->
 
 </main>
 </header>
@@ -64,7 +64,7 @@
 		margin: auto;
 		max-width: 100vw;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: flex-start;
 
 		padding: 20px;
