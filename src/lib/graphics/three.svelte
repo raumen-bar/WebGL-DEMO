@@ -9,10 +9,9 @@
 	import vertexShader from './shaders/vertexShader-three.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
-	import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
-	import fragmentShader_sicovecas2 from './shaders/fragmentShader-sicovecas2.glsl';
+	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
 
-	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_sicovecas1, shaderMaterial_sicovecas2;
+	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_raum;
 
 	let container;
 
@@ -68,25 +67,14 @@
 			}
 		});
 
-		shaderMaterial_sicovecas1 = new THREE.ShaderMaterial({
+		shaderMaterial_raum = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_sicovecas1,
+			fragmentShader: fragmentShader_raum,
 			uniforms: {
 				...uniformsBase,
 				color1: { value: colors.color1 },
 				color2: { value: colors.color1 },
 				color3: { value: colors.color0 },
-			}
-		});
-
-		shaderMaterial_sicovecas2 = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_sicovecas2,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color2 },
-				color3: { value: colors.color3 },
 			}
 		});
 	}
@@ -103,7 +91,7 @@
 				} 
 			} else {
 				shaderMaterial_aufbau.uniforms.mouse.value = mouse;
-				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
+				shaderMaterial_aufbau.uniforms.time.value = elapsedTime ;
 			}
 		}
 
@@ -122,11 +110,8 @@
 		}
 
 		if ($page.url.pathname == '/raum') {
-			shaderMaterial_sicovecas1.uniforms.mouse.value = mouse;
-			shaderMaterial_sicovecas2.uniforms.mouse.value = mouse;
-
-			shaderMaterial_sicovecas1.uniforms.time.value = elapsedTime;
-			shaderMaterial_sicovecas2.uniforms.time.value = elapsedTime;
+			shaderMaterial_raum.uniforms.mouse.value = mouse;
+			shaderMaterial_raum.uniforms.time.value = elapsedTime;
 		}
 	}
 
@@ -177,8 +162,8 @@
 	}
 
 	function setSicovecas () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_sicovecas1);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_sicovecas1);
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_raum);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_raum);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
