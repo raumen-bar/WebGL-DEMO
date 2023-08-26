@@ -4,12 +4,19 @@ import { screenType } from '$lib/store/store';
 import { page } from '$app/stores';
 
 import regl from 'regl';
+import Stats from 'stats.js'
 import { mat4 } from 'gl-matrix';
 
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
 import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
+
+
+let stats = new Stats()
+stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom)
+
 
 let canvas;
 let reglInstance;
@@ -138,6 +145,8 @@ onMount(() => {
         updateDrawCommands($page.url.pathname)
     ;});
     reglInstance.frame(({ tick }) => {
+        stats.begin(); 
+
         reglInstance.clear({ color: [0, 0, 0, 1] });
         if (drawFullScreenSquare) {
             drawFullScreenSquare();
@@ -145,6 +154,7 @@ onMount(() => {
         if (drawHalfScreenSquare) {
             drawHalfScreenSquare();
         }
+        stats.end(); 
     });
 
     return () => {
@@ -194,7 +204,7 @@ function createDrawCommand(frag, vert, positions, uvCoords, assigned_colors) {
                     return [Math.cos(time), Math.tan(time * 0.1)];
                 }
                 
-                if ($screenType == 1 && $page.url.pathname == '/niels') {
+                if ($screenType == 1 && $page.url.pathname == '/ripple') {
                     return [time, time * 0.1];
                 }
                 
