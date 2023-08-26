@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestory } from 'svelte';
+  import { onMount } from 'svelte';
 
   import vertexShader from './shaders/vertexShader.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';

@@ -11,10 +11,20 @@
 
 	onMount(async () => {
 
-		// const moduleThree = await import('$lib/graphics/three.svelte');
-		// const moduleRegl = await import('$lib/graphics/regl.svelte');
-		// const moduleWebGL = await import('$lib/graphics/webgl.svelte');
-		// Geometry = moduleThree.default;
+		if ($renderer === 'three') {
+			const moduleThree = await import('$lib/graphics/three.svelte');
+			Geometry = moduleThree.default;
+		}
+
+		if ($renderer === 'regl') {
+			const moduleRegl = await import('$lib/graphics/regl.svelte');
+			Geometry = moduleRegl.default;
+		}
+
+		if ($renderer === 'webgl') {
+			const moduleWebGL = await import('$lib/graphics/webgl.svelte');
+			Geometry = moduleWebGL.default;
+		}
 
 		function getDeviceType() {
 			const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -38,21 +48,6 @@
 		isIframe.set(window.location !== window.parent.location);
 	});
 
-	$: {
-        if ($renderer === 'three') {
-            import('$lib/graphics/three.svelte').then(module => {
-                Geometry = module.default;
-            });
-        } else if ($renderer === 'regl') {
-            import('$lib/graphics/regl.svelte').then(module => {
-                Geometry = module.default;
-            });
-        } else if ($renderer === 'webgl') {
-            import('$lib/graphics/webgl.svelte').then(module => {
-                Geometry = module.default;
-            });
-        }
-    }
 </script>
 
 <svelte:head>
