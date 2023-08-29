@@ -207,6 +207,10 @@ function createDrawCommand(frag, vert, positions, uvCoords, assigned_colors) {
                 if ($screenType == 1 && $page.url.pathname == '/ripple') {
                     return [time, time * 0.1];
                 }
+
+                if ($screenType != 1 && $page.url.pathname == '/ripple') {
+                    return [mouse.x + time * 0.1, mouse.y + time];
+                }
                 
                 return [mouse.x, mouse.y];
             }
